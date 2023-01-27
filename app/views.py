@@ -48,3 +48,30 @@ def display_access(request):
     QSA=AccessRecords.objects.filter(date__year__gt='2015')
     d={'access':QSA}
     return render(request,'display_access.html',d)    
+
+
+def update_webpages(request):
+    QSW=Webpage.objects.filter(topic_name='Cricket').update(name='MSD')
+    QSW=Webpage.objects.filter(name='chitra').update(url='https://chitra.com')
+    QSW=Webpage.objects.filter(name='Thilak').update(topic_name='Cricket')
+
+    T=Topic.objects.get_or_create(topic_name='hocky')[0]
+    QSW=Webpage.objects.update_or_create(topic_name=T, defaults={'name':'Radha'})
+
+    QSW=Webpage.objects.all()
+    d={'webpages':QSW}
+    return render(request,'display_webpages.html',d)    
+
+def delete_webpages(request):
+    QSW=Webpage.objects.filter(name='Radha').delete()
+    QSW=Webpage.objects.filter(name='Thilak').delete()
+    QSW=Webpage.objects.filter(topic_name='Rugby').delete()
+    QSW=Webpage.objects.all()
+    d={'webpages':QSW}
+    return render(request,'display_webpages.html',d)    
+
+
+
+
+
+
